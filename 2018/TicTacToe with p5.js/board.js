@@ -110,12 +110,16 @@ class Board {
                     (this.moves[2] == -1 && this.moves[6] == -1))
                     return this.chooseRandomFromArray([1, 3, 5, 7]);
         }
-        // Else, if a corner is available, take it
-        if (this.chooseRandomFromArray([0, 2, 6, 8]) != -1)
-            return this.chooseRandomFromArray([0, 2, 6, 8]);
-        // Else, just take a random edge
-        if (this.chooseRandomFromArray([1, 3, 5, 7]) != -1)
-            return this.chooseRandomFromArray([1, 3, 5, 7]);
+        if (difficulty > 0) {
+            // Else, if a corner is available, take it
+            if (this.chooseRandomFromArray([0, 2, 6, 8]) != -1)
+                return this.chooseRandomFromArray([0, 2, 6, 8]);
+            // Else, just take a random edge
+            if (this.chooseRandomFromArray([1, 3, 5, 7]) != -1)
+                return this.chooseRandomFromArray([1, 3, 5, 7]);
+        }
+        // If difficulty == 0, choose a random move
+        return this.chooseRandomFromArray([0, 1, 2, 3, 4, 5, 6, 7, 8]);
     }
 
     // Reset board

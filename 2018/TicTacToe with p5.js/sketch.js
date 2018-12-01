@@ -71,13 +71,13 @@ function draw() {
         textSize(100);
         switch (board.currentState()) {
             case -1:
-                text("Player wins!", width / 2, height / 2);
+                text("Player wins!", board.x + board.size / 2, board.y + board.size / 2);
                 break;
             case 0:
-                text("It's a tie!", width / 2, height / 2);
+                text("It's a tie!", board.x + board.size / 2, board.y + board.size / 2);
                 break;
             case 1:
-                text("Computer wins!", width / 2, height / 2);
+                text("Computer wins!", board.x + board.size / 2, board.y + board.size / 2);
                 break;
         }
     }
