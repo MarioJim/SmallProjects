@@ -1,8 +1,8 @@
 class Ball {
-    constructor(magVel) {
+    constructor(yVel) {
         this.pos = createVector(width / 2, height / 2);
         this.r = 50;
-        this.vel = p5.Vector.fromAngle(random(TWO_PI), magVel);
+        this.vel = createVector(yVel, random(10));
     }
 
     show() {
