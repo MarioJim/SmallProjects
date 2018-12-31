@@ -3,16 +3,16 @@ import java.util.ArrayList;
 
 class Ex1to10 {
     public static void main(String[] args) {
-        // System.out.println("Excercise 1: " + ex1());
-        // System.out.println("Excercise 2: " + ex2());
-        // System.out.println("Excercise 3: " + ex3());
-        // System.out.println("Excercise 4: " + ex4());
-        // System.out.println("Excercise 5: " + ex5());
-        // System.out.println("Excercise 6: " + ex6());
-        // System.out.println("Excercise 7: " + ex7());
-        // System.out.println("Excercise 8: " + ex8());
-        // System.out.println("Excercise 9: " + ex9());
-        System.out.println("Excercise 10: " + ex10());
+        System.out.println("Exercise 1: " + ex1());
+        System.out.println("Exercise 2: " + ex2());
+        System.out.println("Exercise 3: " + ex3());
+        System.out.println("Exercise 4: " + ex4());
+        System.out.println("Exercise 5: " + ex5());
+        System.out.println("Exercise 6: " + ex6());
+        System.out.println("Exercise 7: " + ex7());
+        System.out.println("Exercise 8: " + ex8());
+        System.out.println("Exercise 9: " + ex9());
+        System.out.println("Exercise 10: " + ex10());
     }
 
     static int ex1() {
@@ -120,19 +120,15 @@ class Ex1to10 {
 
     static long ex10() {
         long sum = 2;
-        int max;
-        boolean isPrime;
         for (int posPrime = 3; posPrime < 2000000; posPrime += 2) {
-            max = (int) Math.ceil(Math.sqrt(posPrime));
-            isPrime = true;
+            int max = (int) Math.ceil(Math.sqrt(posPrime));
+            boolean isPrime = true;
             for (int i = 3; i <= max; i++)
                 if (posPrime % i == 0)
                     isPrime = false;
             if (isPrime)
                 sum += posPrime;
-
         }
         return sum;
     }
-
 }
