@@ -61,3 +61,10 @@ typings/
 .env.test
 
 # End of https://www.gitignore.io/api/c++,node,java
+
+
+# Specific to projects
+# fonts for CV (can be found in https://github.com/posquit0/Awesome-CV)
+CV/fonts
+# autogen'd files
+CV/resume.aux
