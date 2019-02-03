@@ -68,3 +68,5 @@ typings/
 CV/fonts
 # autogen'd files
 CV/resume.aux
+# API keys
+secrets.js
