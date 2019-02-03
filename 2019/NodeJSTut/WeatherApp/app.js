@@ -1,7 +1,7 @@
-const request = require("request");
 const yargs = require("yargs");
 
-const api = require("./secrets");
+const geocode = require("./geocode/geocode");
+const weather = require("./weather/weather");
 
 const argv = yargs
     .options({
@@ -16,13 +16,16 @@ const argv = yargs
     .alias("help", "h")
     .argv;
 
-let encodedAddress = encodeURIComponent(argv.a);
-
-request({
-    url: `https://api.opencagedata.com/geocode/v1/json?q=${encodedAddress}&key=${api.APIKEY}`,
-    json: true
-}, (error, response, body) => {
-    console.log(`Place: ${body.results[0].formatted}`);
-    console.log(`Latitude: ${body.results[0].geometry.lat}`);
-    console.log(`Longitude: ${body.results[0].geometry.lng}`);
+geocode.geocodeAddress(argv.address, (error, gResult) => {
+    if (error)
+        console.log(error);
+    else {
+        console.log(gResult.address);
+        weather.getWeather(gResult.lat, gResult.lng, (error, wResult) => {
+            if (error)
+                console.log(error);
+            else
+                console.log(`It's currently ${wResult.temperature} C, but it feels like ${wResult.appTemperature} C`);
+        });
+    }
 });
