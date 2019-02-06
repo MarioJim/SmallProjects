@@ -1,7 +1,7 @@
-let getUser = (id, callback) => {
-    let user = {
-        id: id,
-        name: "oh shit"
+const getUser = (id, callback) => {
+    const user = {
+        id,
+        name: "oh shit",
     };
 
     setTimeout(() => {
@@ -9,6 +9,4 @@ let getUser = (id, callback) => {
     }, 3000);
 };
 
-getUser(3434, (user) => {
-    console.log(user);
-});
+getUser(3434, user => console.log(user));

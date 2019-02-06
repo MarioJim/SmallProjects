@@ -2,27 +2,23 @@ const express = require("express");
 const hbs = require("hbs");
 const fs = require("fs");
 
-let app = express();
+const app = express();
 
-hbs.registerPartials(__dirname + "/views/partials");
+hbs.registerPartials(`${__dirname}/views/partials`);
 app.set("view engine", "hbs");
 
 app.use((req, res, next) => {
-    let now = new Date().toString();
-    let log = `${now}: ${req.method}, ${req.url}`;
+    const now = new Date().toString();
+    const log = `${now}: ${req.method}, ${req.url}`;
     console.log(log);
-    fs.appendFile("server.log", log + "\n", err => {
+    fs.appendFile("server.log", `${log}\n`, (err) => {
         if (err)
             console.log("Unable to append to server.log.");
     });
     next();
 });
 
-// app.use((req, res, next) => {
-//     res.render("maintenance.hbs");
-// });
-
-app.use(express.static(__dirname + "/public"));
+app.use(express.static(`${__dirname}/public`));
 
 hbs.registerHelper("getCurrentYear", () => new Date().getFullYear());
 hbs.registerHelper("screamIt", text => text.toUpperCase());
@@ -30,19 +26,19 @@ hbs.registerHelper("screamIt", text => text.toUpperCase());
 app.get("/", (req, res) => {
     res.render("home.hbs", {
         welcomeMessage: "Hola prro",
-        pageTitle: "Home Page"
+        pageTitle: "Home Page",
     });
 });
 
 app.get("/about", (req, res) => {
     res.render("about.hbs", {
-        pageTitle: "About Page"
+        pageTitle: "About Page",
     });
 });
 
 app.get("/bad", (req, res) => {
     res.send({
-        errorMessage: "Error handling request"
+        errorMessage: "Error handling request",
     });
 });
 

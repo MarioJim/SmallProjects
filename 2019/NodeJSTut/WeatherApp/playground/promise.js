@@ -1,4 +1,4 @@
-let asyncAdd = (a, b) => {
+const asyncAdd = (a, b) => {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             if ((typeof a === "number") && (typeof b === "number"))
@@ -15,7 +15,7 @@ asyncAdd(5, "23").then((res) => {
 }).then((res) => {
     console.log(`Result 2: ${res}`);
 }).catch((error) => {
-    console.log(error)
+    console.log(error);
 });
 
 // let somePromise = new Promise((resolve, reject) => {
