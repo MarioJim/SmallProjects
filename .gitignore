@@ -23,9 +23,6 @@ yarn-error.log*
 
 # Package Files #
 *.jar
-*.war
-*.nar
-*.ear
 *.zip
 *.tar.gz
 *.rar
@@ -47,9 +44,6 @@ build/Release
 node_modules/
 jspm_packages/
 
-# TypeScript v1 declaration files
-typings/
-
 # Optional npm cache directory
 .npm
 
@@ -61,7 +55,6 @@ typings/
 .env.test
 
 # End of https://www.gitignore.io/api/c++,node,java
-
 
 # Specific to projects
 # fonts for CV (can be found in https://github.com/posquit0/Awesome-CV)

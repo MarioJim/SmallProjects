@@ -3,45 +3,45 @@ const expect = require("expect");
 const utils = require("./utils");
 
 describe("Utils", () => {
-    describe("#add", () => {
-        it("should add two numbers", () => {
-            let res = utils.add(33, 11);
-            expect(res).toBe(44).toBeA("number");
-        });
-
-        it("should add two numbers", (done) => {
-            utils.asyncAdd(4, 3, (sum) => {
-                expect(sum).toBe(7).toBeA("number");
-                done();
-            });
-        });
+  describe("#add", () => {
+    it("should add two numbers", () => {
+      let res = utils.add(33, 11);
+      expect(res).toBe(44).toBeA("number");
     });
 
-    describe("#square", () => {
-        it("should square a number", () => {
-            let res = utils.square(11);
-            expect(res).toBe(121).toBeA("number");
-        });
+    it("should add two numbers", (done) => {
+      utils.asyncAdd(4, 3, (sum) => {
+        expect(sum).toBe(7).toBeA("number");
+        done();
+      });
+    });
+  });
 
-        it("should square a number", (done) => {
-            utils.asyncSquare(4, (sum) => {
-                expect(sum).toBe(16).toBeA("number");
-                done();
-            });
-        });
+  describe("#square", () => {
+    it("should square a number", () => {
+      let res = utils.square(11);
+      expect(res).toBe(121).toBeA("number");
     });
 
-    it("should verify names are set", () => {
-        let user = {
-            age: 18,
-            location: "CDMX"
-        };
-        user = utils.setName(user, "Mario Jimenez");
-        expect(user).toInclude({
-            firstName: "Mario",
-            lastName: "Jimenez"
-        });
+    it("should square a number", (done) => {
+      utils.asyncSquare(4, (sum) => {
+        expect(sum).toBe(16).toBeA("number");
+        done();
+      });
     });
+  });
+
+  it("should verify names are set", () => {
+    let user = {
+      age: 18,
+      location: "CDMX"
+    };
+    user = utils.setName(user, "Mario Jimenez");
+    expect(user).toInclude({
+      firstName: "Mario",
+      lastName: "Jimenez"
+    });
+  });
 });
 
 
