@@ -10,7 +10,7 @@
   "author": "Mario Jimenez",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.4"
+    "express": "^4.17.1"
   },
   "devDependencies": {
     "expect": "^1.20.2",
