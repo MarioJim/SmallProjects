@@ -4,10 +4,12 @@ import Action from './Action';
 import AddOption from './AddOption';
 import Header from './Header';
 import Options from './Options';
+import OptionModal from './OptionModal';
 
 export default class IndecisionApp extends React.Component {
   state = {
     options: [],
+    selectedOption: undefined,
   };
 
   componentDidMount() {
@@ -15,8 +17,9 @@ export default class IndecisionApp extends React.Component {
       const json = localStorage.getItem('options');
       if (json === null) return;
       const options = JSON.parse(json);
-      this.setState(() => ({ options }));
+      this.setState(() => ({ options, }));
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error(error);
     }
   }
@@ -28,19 +31,15 @@ export default class IndecisionApp extends React.Component {
     localStorage.setItem('options', json);
   }
 
-  componentWillUnmount() {
-    console.log('componentWillUnmount');
-  }
-
   handleDeleteOptions = () => {
-    this.setState(() => ({ options: [] }));
+    this.setState(() => ({ options: [], }));
   }
 
   handlePick = () => {
     const { options } = this.state;
     const randNum = Math.floor(Math.random() * options.length);
-    const randOption = options[randNum];
-    window.alert(randOption);
+    const selectedOption = options[randNum];
+    this.setState(() => ({ selectedOption, }));
   }
 
   handleAddOption = option => {
@@ -50,33 +49,45 @@ export default class IndecisionApp extends React.Component {
     if (options.includes(option)) 
       return 'This element already exists';
 
-    this.setState(prevState => ({ options: prevState.options.concat(option) }));
+    this.setState(prevState => ({ options: prevState.options.concat(option), }));
     return undefined;
   }
 
   handleDeleteOption = optionToRemove => {
     this.setState(prevState => ({
-      options: prevState.options.filter(option => option !== optionToRemove)
+      options: prevState.options.filter(option => option !== optionToRemove),
     }));
+  }
+
+  handleClearSelectedOption = () => {
+    this.setState(() => ({ selectedOption: undefined, }));
   }
 
   render() {
     const subtitle = 'Put your life in the hands of a computer';
-    const { options } = this.state;
+    const { options, selectedOption } = this.state;
     return (
       <div>
         <Header subtitle={ subtitle } />
-        <Action 
-          hasOptions={ options.length > 0 }
-          handlePick={ this.handlePick }
-        />
-        <Options 
-          options={options}
-          handleDeleteOptions={ this.handleDeleteOptions }
-          handleDeleteOption={ this.handleDeleteOption }
-        />
-        <AddOption 
-          handleAddOption={ this.handleAddOption }
+        <div className="container">
+          <Action 
+            hasOptions={ options.length > 0 }
+            handlePick={ this.handlePick }
+          />
+          <div className="widget">
+            <Options 
+              options={ options }
+              handleDeleteOptions={ this.handleDeleteOptions }
+              handleDeleteOption={ this.handleDeleteOption }
+            />
+            <AddOption 
+              handleAddOption={ this.handleAddOption }
+            />
+          </div>
+        </div>
+        <OptionModal
+          selectedOption={ selectedOption }
+          handleClearSelectedOption={ this.handleClearSelectedOption }
         />
       </div>
     );
