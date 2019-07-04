@@ -1,5 +1,5 @@
 {
-  "name": "indecision-app",
+  "name": "expensify-app",
   "version": "1.0.0",
   "main": "src/app.jsx",
   "author": "Mario Jimenez",
@@ -10,10 +10,12 @@
     "dev-server": "webpack-dev-server"
   },
   "dependencies": {
+    "@babel/plugin-proposal-object-rest-spread": "^7.4.4",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-loader": "7",
     "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "css-loader": "^3.0.0",
@@ -23,8 +25,12 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-modal": "^3.8.1",
+    "react-redux": "^7.1.0",
+    "react-router-dom": "^5.0.1",
+    "redux": "^4.0.1",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
+    "uuid": "^3.3.2",
     "validator": "^11.0.0",
     "webpack": "^4.35.0",
     "webpack-dev-server": "^3.7.2"
