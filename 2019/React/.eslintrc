@@ -6,7 +6,8 @@
         "prettier/react"
     ],
     "plugins": [
-        "prettier"
+        "prettier",
+        "jest"
     ],
     "rules": {
         "react/jsx-filename-extension": [
@@ -33,6 +34,7 @@
         "FormData": true,
         "FileReader": true,
         "Blob": true,
-        "navigator": true
+        "navigator": true,
+        "gest/globals": true
     }
 }
