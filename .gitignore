@@ -63,3 +63,5 @@ CV/fonts
 CV/resume.aux
 # API keys
 secrets.js
+# Dist folder @ Expensify-app @ React tutorial
+2019/React/expensify-app/public/dist

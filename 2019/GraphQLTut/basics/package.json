@@ -1,0 +1,23 @@
+{
+  "name": "graphql-basics",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "nodemon src/index.js --exec babel-node"
+  },
+  "author": "Mario Jiménez",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5"
+  },
+  "dependencies": {
+    "@babel/node": "^7.5.5",
+    "@babel/polyfill": "^7.4.4",
+    "core-js": "3",
+    "graphql": "^14.4.2",
+    "graphql-yoga": "^1.18.1",
+    "nodemon": "^1.19.1"
+  }
+}
