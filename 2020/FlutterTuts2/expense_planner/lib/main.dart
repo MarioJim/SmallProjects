@@ -106,16 +106,34 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  List<Widget> _buildLandscapeContent(
+    bool _showChart,
+    Widget chartWidget,
+    Widget txListWidget,
+  ) =>
+      [
+        Row(
+          children: <Widget>[
+            const Text('Show Chart'),
+            Switch(
+              value: _showChart,
+              onChanged: (value) => setState(() => _showChart = value),
+            ),
+          ],
+        ),
+        _showChart ? chartWidget : txListWidget,
+      ];
+
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final isLandscape = mediaQuery.orientation == Orientation.landscape;
 
     final appBar = AppBar(
-      title: Text('Personal Expenses'),
+      title: const Text('Personal Expenses'),
       actions: <Widget>[
         IconButton(
-          icon: Icon(Icons.add),
+          icon: const Icon(Icons.add),
           onPressed: () => _startAddNewTransaction(context),
         ),
       ],
@@ -139,25 +157,13 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: appBar,
       body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            if (isLandscape)
-              Row(
-                children: <Widget>[
-                  Text('Show Chart'),
-                  Switch(
-                    value: _showChart,
-                    onChanged: (value) => setState(() => _showChart = value),
-                  ),
-                ],
-              ),
-            if (_showChart || !isLandscape) chartWidget,
-            if (!_showChart || !isLandscape) txListWidget,
-          ],
-        ),
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: isLandscape
+                ? _buildLandscapeContent(_showChart, chartWidget, txListWidget)
+                : [chartWidget, txListWidget]),
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
         onPressed: () => _startAddNewTransaction(context),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

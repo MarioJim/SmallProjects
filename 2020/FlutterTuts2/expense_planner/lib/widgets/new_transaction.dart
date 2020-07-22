@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class NewTransaction extends StatefulWidget {
-  final void Function(String, double, DateTime) addNewTransaction;
+  final void Function(String, double, DateTime) _addNewTransaction;
 
-  NewTransaction(this.addNewTransaction);
+  NewTransaction(this._addNewTransaction);
 
   @override
   _NewTransactionState createState() => _NewTransactionState();
@@ -20,7 +20,7 @@ class _NewTransactionState extends State<NewTransaction> {
     final enteredAmount = double.tryParse(_amountController.text) ?? -1;
 
     if (enteredTitle.isNotEmpty && enteredAmount > 0 && _selectedDate != null)
-      widget.addNewTransaction(enteredTitle, enteredAmount, _selectedDate);
+      widget._addNewTransaction(enteredTitle, enteredAmount, _selectedDate);
 
     Navigator.of(context).pop();
   }
@@ -32,10 +32,7 @@ class _NewTransactionState extends State<NewTransaction> {
       firstDate: DateTime(2020),
       lastDate: DateTime.now(),
     ).then((date) {
-      if (date == null) return;
-      setState(() {
-        _selectedDate = date;
-      });
+      if (date != null) setState(() => _selectedDate = date);
     });
   }
 
@@ -55,12 +52,12 @@ class _NewTransactionState extends State<NewTransaction> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
               TextField(
-                decoration: InputDecoration(hintText: 'Title'),
+                decoration: const InputDecoration(hintText: 'Title'),
                 controller: _titleController,
                 onSubmitted: (_) => _submitData(),
               ),
               TextField(
-                decoration: InputDecoration(hintText: 'Amount'),
+                decoration: const InputDecoration(hintText: 'Amount'),
                 controller: _amountController,
                 keyboardType: TextInputType.number,
                 onSubmitted: (_) => _submitData(),
@@ -79,7 +76,7 @@ class _NewTransactionState extends State<NewTransaction> {
                     ),
                     FlatButton(
                       textColor: Theme.of(context).primaryColor,
-                      child: Text(
+                      child: const Text(
                         'Choose Date',
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
@@ -89,7 +86,7 @@ class _NewTransactionState extends State<NewTransaction> {
                 ),
               ),
               RaisedButton(
-                child: Text('Add Transaction'),
+                child: const Text('Add Transaction'),
                 color: Theme.of(context).primaryColor,
                 textColor: Theme.of(context).textTheme.button.color,
                 onPressed: _submitData,
