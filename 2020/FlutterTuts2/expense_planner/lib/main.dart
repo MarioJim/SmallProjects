@@ -1,12 +1,14 @@
-import 'package:expense_planner/widgets/chart.dart';
-import 'package:expense_planner/widgets/new_transaction.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import './models/transaction.dart';
-import './widgets/transaction_list.dart';
+import './widgets/chart.dart';
 import './widgets/new_transaction.dart';
+import './widgets/transaction_list.dart';
 
 void main() {
+  // WidgetsFlutterBinding.ensureInitialized();
+  // SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(MyApp());
 }
 
@@ -48,25 +50,27 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _userTransactions = [
-    // Transaction(
-    //   id: '1',
-    //   title: 'Shoes',
-    //   amount: 29.99,
-    //   date: DateTime.now(),
-    // ),
-    // Transaction(
-    //   id: '2',
-    //   title: 'Headphones',
-    //   amount: 39.99,
-    //   date: DateTime.now(),
-    // ),
-    // Transaction(
-    //   id: '3',
-    //   title: 'Groceries',
-    //   amount: 19.99,
-    //   date: DateTime.now(),
-    // )
+    Transaction(
+      id: '1',
+      title: 'Shoes',
+      amount: 29.99,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: '2',
+      title: 'Headphones',
+      amount: 39.99,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: '3',
+      title: 'Groceries',
+      amount: 19.99,
+      date: DateTime.now(),
+    )
   ];
+
+  bool _showChart = false;
 
   List<Transaction> get _recentTransactions {
     return _userTransactions
@@ -104,22 +108,51 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+    final isLandscape = mediaQuery.orientation == Orientation.landscape;
+
+    final appBar = AppBar(
+      title: Text('Personal Expenses'),
+      actions: <Widget>[
+        IconButton(
+          icon: Icon(Icons.add),
+          onPressed: () => _startAddNewTransaction(context),
+        ),
+      ],
+    );
+
+    final appHeight = mediaQuery.size.height -
+        appBar.preferredSize.height -
+        mediaQuery.padding.vertical;
+
+    final chartWidget = Container(
+      height: (isLandscape ? 0.8 : 0.25) * appHeight,
+      child: Chart(_recentTransactions),
+    );
+
+    final txListWidget = Container(
+      height: 0.75 * appHeight,
+      child: TransactionList(_userTransactions, _deleteTransaction),
+    );
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Personal Expenses'),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () => _startAddNewTransaction(context),
-          ),
-        ],
-      ),
+      appBar: appBar,
       body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Chart(_recentTransactions),
-            TransactionList(_userTransactions, _deleteTransaction),
+            if (isLandscape)
+              Row(
+                children: <Widget>[
+                  Text('Show Chart'),
+                  Switch(
+                    value: _showChart,
+                    onChanged: (value) => setState(() => _showChart = value),
+                  ),
+                ],
+              ),
+            if (_showChart || !isLandscape) chartWidget,
+            if (!_showChart || !isLandscape) txListWidget,
           ],
         ),
       ),
